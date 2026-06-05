@@ -111,3 +111,19 @@ If you finish early or want an extra challenge, try one of these:
 - Stay curious. The unpredictability is intentional and part of the experience.
 
 When you finish, Playlist Chaos will feel more predictable, and you will have taken your first steps into AI-assisted debugging.
+
+---
+
+## Fixes and Improvements
+### Bug Fixes
+1. **Total song count was wrong** — `compute_playlist_stats` used `len(hype)` as the total instead of all songs. Fixed by counting across every playlist.
+2. **Average energy only counted hype songs** — the energy sum excluded Chill and Mixed songs. Fixed by summing all songs.
+3. **Search results were reversed** — the condition `value in q` was backwards, so queries rarely matched. Fixed by flipping it to `q in value`.
+4. **Lucky Pick ignored Mixed songs** — the "any" mode only pulled from Hype and Chill. Fixed by adding the Mixed playlist to the pool.
+
+### Refactor
+Replaced `sorted(counts.items(), ...)[0]` with `max(counts.items(), ...)` in `most_common_artist`. Same result, but `max` communicates the intent directly without sorting a list we never use.
+
+### Reflection
+The main takeaway from this project is that being specific with AI makes it a much better collaborator. Understanding the problem first, what the code is supposed to do versus what it actually does, lets you give AI clear targeted prompts instead of vague ones. That specificity is what turns AI into a tool that helps you move faster and get better results.
+
